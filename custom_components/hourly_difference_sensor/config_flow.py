@@ -2,8 +2,8 @@
 from __future__ import annotations
 
 import voluptuous as vol
+import homeassistant.helpers.config_validation as cv
 from homeassistant import config_entries
-from homeassistant.core import callback
 from homeassistant.const import CONF_NAME
 
 DOMAIN = "hourly_difference_sensor"
@@ -39,6 +39,3 @@ class HourlyDifferenceSensorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN)
             }),
             errors=errors,
         )
-
-# Helper for list input
-import homeassistant.helpers.config_validation as cv
