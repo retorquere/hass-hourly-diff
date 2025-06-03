@@ -2,7 +2,7 @@
   "domain": "hourly_difference_sensor",
   "name": "Hourly Difference Sensor",
   "version": "1.0.0",
-  "documentation": "https://github.com/retorquere/home-assistant-helper",
+  "documentation": "https://github.com/retorquere/hass-hourly-diff",
   "requirements": [],
   "dependencies": [],
   "codeowners": ["@retorquere"],
