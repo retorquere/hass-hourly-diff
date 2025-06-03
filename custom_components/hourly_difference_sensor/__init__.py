@@ -1,3 +1,7 @@
+async def async_setup(hass, config):
+    """Set up the Hourly Difference Sensor integration (for discovery)."""
+    return True
+
 async def async_setup_entry(hass, entry):
     """Set up Hourly Difference Sensor from a config entry."""
     # Set up your sensor platform here, or forward to the sensor platform
