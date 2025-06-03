@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 import voluptuous as vol
-import homeassistant.helpers.config_validation as cv
 from homeassistant import config_entries
 from homeassistant.const import CONF_NAME
+from homeassistant.helpers import selector
 
 DOMAIN = "hourly_difference_sensor"
 CONF_SENSORS = "sensors"
@@ -18,7 +18,6 @@ class HourlyDifferenceSensorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN)
     async def async_step_user(self, user_input=None):
         errors = {}
         if user_input is not None:
-            # Validate sensors list
             sensors = user_input.get(CONF_SENSORS, [])
             if not sensors:
                 errors[CONF_SENSORS] = "required"
@@ -32,8 +31,11 @@ class HourlyDifferenceSensorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN)
             step_id="user",
             data_schema=vol.Schema({
                 vol.Optional(CONF_NAME, default="Hourly Difference Sensor"): str,
-                vol.Required(CONF_SENSORS): vol.All(
-                    cv.ensure_list, [str]
+                vol.Required(CONF_SENSORS): selector.EntitySelectorConfig(
+                    {
+                        "multiple": True,
+                        "domain": "sensor"
+                    }
                 ),
                 vol.Optional(CONF_SCAN_INTERVAL, default=60): vol.All(int, vol.Range(min=1)),
             }),
