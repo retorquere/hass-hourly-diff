@@ -1,0 +1,13 @@
+{
+  "name": "Hourly Difference Sensor",
+  "description": "A Home Assistant sensor that calculates the difference between the sum of two sensors every hour.",
+  "version": "1.0.0",
+  "slug": "hourly_difference_sensor",
+  "url": "https://github.com/yourusername/home-assistant-helper",
+  "issues_url": "https://github.com/yourusername/home-assistant-helper/issues",
+  "changelog": "https://github.com/yourusername/home-assistant-helper/blob/main/CHANGELOG.md",
+  "homeassistant": "2023.1.0",
+  "dependencies": [],
+  "codeowners": ["@retorquere"],
+  "requirements": []
+}
