@@ -31,7 +31,7 @@ class HourlyDifferenceSensorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN)
             step_id="user",
             data_schema=vol.Schema({
                 vol.Optional(CONF_NAME, default="Hourly Difference Sensor"): str,
-                vol.Required(CONF_SENSORS): selector.EntitySelectorConfig(
+                vol.Required(CONF_SENSORS): selector.EntitySelector(
                     {
                         "multiple": True,
                         "domain": "sensor"
