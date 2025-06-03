@@ -1,22 +1,26 @@
 from datetime import timedelta
 import logging
-from homeassistant.helpers.entity import Entity
+from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import track_time_interval
 from homeassistant.helpers.restore_state import RestoreEntity
 
 _LOGGER = logging.getLogger(__name__)
 
-class HourlyDifferenceSensor(RestoreEntity, Entity):
+async def async_setup_entry(hass, entry, async_add_entities):
+    name = entry.data.get("name", "Hourly Difference Sensor")
+    sensors = entry.data.get("sensors", [])
+    scan_interval = entry.data.get("scan_interval_minutes", 60)
+    async_add_entities([HourlyDifferenceSensor(name, sensors, scan_interval)])
+
+class HourlyDifferenceSensor(SensorEntity, RestoreEntity):
     def __init__(self, name, sensors, scan_interval_minutes=60):
-        self._name = name
+        self._attr_name = name
+        self._attr_icon = "mdi:stopwatch"
+        self._attr_unique_id = f"{name.lower().replace(' ', '_')}_hourly_difference"
         self._sensors = sensors  # List of sensor entity_ids
         self._state = None
         self._previous_sum = None
         self._scan_interval = timedelta(minutes=scan_interval_minutes)
-
-    @property
-    def name(self):
-        return self._name
 
     @property
     def state(self):
@@ -58,3 +62,6 @@ class HourlyDifferenceSensor(RestoreEntity, Entity):
         return {
             "previous_sum": self._previous_sum
         }
+
+    async def async_update(self):
+        self._state = 0  # Implement your logic to calculate the difference here
